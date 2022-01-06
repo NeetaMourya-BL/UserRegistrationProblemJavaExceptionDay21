@@ -2,9 +2,8 @@ package com.bridgelabz.javaexception;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class UserRegistrationProblem {
-    public static boolean isValidUserFirstName(String firstname)
+    public static boolean isValidUserFirstName(String firstname) throws CustomException.InvalidFirstName
     {
         // Regex to check valid userfirstname.
         String regex = "^[A-Za-z]\\w{3,29}$";
@@ -13,7 +12,7 @@ public class UserRegistrationProblem {
         // If the userfirstname is empty
         // return false
         if (firstname == null) {
-            return false;
+			throw new CustomException.InvalidFirstName("First name starts with Cap and has minimum 3 characters");
         }
         // Pattern class contains matcher() method
         // to find matching between given userfirstname
@@ -24,7 +23,7 @@ public class UserRegistrationProblem {
         return m.matches();
     }
   	// Function to validate the userlastname
-        public static boolean isValidUserLastName(String lastname)
+        public static boolean isValidUserLastName(String lastname) throws CustomException.InvalidLastName
         {
             // Regex to check valid userlastname.
             String regex = "^[A-Za-z]\\w{3,29}$";
@@ -35,7 +34,7 @@ public class UserRegistrationProblem {
             // If the userlastname is empty
             // return false
             if (lastname == null) {
-                return false;
+    			throw new CustomException.InvalidLastName("Last name starts with Cap and has minimum 3 characters");
             }
             // Pattern class contains matcher() method
             // to find matching between given userlastname
@@ -46,7 +45,7 @@ public class UserRegistrationProblem {
             return m.matches();
         }
         // Function to validate the useremail
-        public static boolean isValidUserEmail(String email)
+        public static boolean isValidUserEmail(String email) throws CustomException.InvalidEmail
         {
             // Regex to check valid useremail.
             String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
@@ -57,7 +56,7 @@ public class UserRegistrationProblem {
             // If the useremail is empty
             // return false
             if (email == null) {
-                return false;
+            	throw new CustomException.InvalidEmail("enter a valid email - E.g. abc.xyz@bl.co.in - Email has 3 mandatory parts (abc, bl&co) and 2 optional (xyz & in) with precise @ and . positions");
             }
             // Pattern class contains matcher() method
             // to find matching between given useremail
@@ -68,17 +67,17 @@ public class UserRegistrationProblem {
             return m.matches();
         }
         // Function to validate the usermobilenumnber
-        public static boolean isValidMobileNo(String mobileNumber)  
+        public static boolean isValidMobileNo(String mobileNumber)throws CustomException.InvalidMobile
         {  
         Pattern ptrn = Pattern.compile("^((\\+|00)(\\d{1,3})[\\s-]?)?(\\d{10})$");
         //the matcher() method creates a matcher that will match the given input against this pattern  
         Matcher match = ptrn.matcher(mobileNumber);  
         //returns a boolean value  
-        return (match.find() && match.group().equals(mobileNumber));  
+    	throw new CustomException.InvalidMobile("Mobile Format - E.g. 91 9919819801 - Country code follow by space and 10 digit number");  
         }  
         // Function to validate the userpassword
      // Function to validate the password.
-        public static boolean isValidPassword(String password)
+        public static boolean isValidUserPassword(String password)throws Exception
         {
             // Regex to check valid password.
 //        	^ represents starting character of the string.
@@ -98,7 +97,7 @@ public class UserRegistrationProblem {
             // If the password is empty
             // return false
             if (password == null) {
-                return false;
+            	throw new Exception("Invalid password");
             }
             // Pattern class contains matcher() method
             // to find matching between given password
@@ -121,7 +120,12 @@ public class UserRegistrationProblem {
         String str4 ="+91-9919819801"; //usermobilenumnber
         System.out.println(isValidMobileNo(str4));  
         String str5 ="BridgeLabz@123"; //userpassword
-        System.out.println(isValidPassword(str5)); 
+        try {
+			System.out.println(isValidUserPassword(str5));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         
         ArrayList<String> emails = new ArrayList<String>();  
         emails.add("abc@yahoo.com");  

@@ -33,7 +33,5 @@ public class CustomException extends Exception{
 		public InvalidPassword(String message) {
 			super(message);
 		}
-	}
-	
-			
+	}			
 }
