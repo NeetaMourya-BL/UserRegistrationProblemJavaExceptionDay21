@@ -9,19 +9,13 @@ public class UserRegistrationProblem {
         // Regex to check valid userfirstname.
         String regex = "^[A-Za-z]\\w{3,29}$";
         // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-        // If the userfirstname is empty
-        // return false
-        if (firstname == null) {
-            return false;
-        }
-        // Pattern class contains matcher() method
-        // to find matching between given userfirstname
-        // and regular expression.
-        Matcher m = p.matcher(firstname);
-        // Return if the userfirstname
-        // matched the ReGex
-        return m.matches();
+        Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(firstname);
+		if (matcher.matches()) {
+			return true;
+		}
+		throw new CustomException.InvalidFirstName("FirstName should be start with cap and length is minimum 3");
+        
     }
   	// Function to validate the userlastname
         public static boolean isValidUserLastName(String lastname)
@@ -30,21 +24,14 @@ public class UserRegistrationProblem {
             String regex = "^[A-Za-z]\\w{3,29}$";
       
             // Compile the ReGex
-            Pattern p = Pattern.compile(regex);
-      
-            // If the userlastname is empty
-            // return false
-            if (lastname == null) {
-                return false;
-            }
-            // Pattern class contains matcher() method
-            // to find matching between given userlastname
-            // and regular expression.
-            Matcher m = p.matcher(lastname);
-            // Return if the userlastname
-            // matched the ReGex
-            return m.matches();
-        }
+            Pattern pattern = Pattern.compile(regex);
+    		Matcher matcher = pattern.matcher(lastname);
+    		if (matcher.matches()) {
+    			return true;
+    		}
+    		throw new CustomException.InvalidFirstName("LastName should be start with cap and length is minimum 3");
+    	}
+
         // Function to validate the useremail
         public static boolean isValidUserEmail(String email)
         {
@@ -70,14 +57,14 @@ public class UserRegistrationProblem {
         // Function to validate the usermobilenumnber
         public static boolean isValidMobileNo(String mobileNumber)  
         {  
-        Pattern ptrn = Pattern.compile("^((\\+|00)(\\d{1,3})[\\s-]?)?(\\d{10})$");
-        //the matcher() method creates a matcher that will match the given input against this pattern  
-        Matcher match = ptrn.matcher(mobileNumber);  
-        //returns a boolean value  
-        return (match.find() && match.group().equals(mobileNumber));  
-        }  
-        // Function to validate the userpassword
-     // Function to validate the password.
+        	String regex = "^[0-9]{2}+[ ][0-9]{10}$";
+    		Pattern pattern = Pattern.compile(regex);
+    		Matcher matcher = pattern.matcher(mobileNumber);
+    		if (matcher.matches()) {
+    			return true;
+    		}
+    		throw new CustomException.InvalidMobile("Country code follwed by space and 10 digit number");
+    	}
         public static boolean isValidPassword(String password)
         {
             // Regex to check valid password.
@@ -94,20 +81,14 @@ public class UserRegistrationProblem {
                     + "(?=.*[@#$%^&+=])"
                     + "(?=\\S+$).{8,20}$";
             // Compile the ReGex
-            Pattern p = Pattern.compile(regex);
-            // If the password is empty
-            // return false
-            if (password == null) {
-                return false;
-            }
-            // Pattern class contains matcher() method
-            // to find matching between given password
-            // and regular expression.
-            Matcher m = p.matcher(password);
-            // Return if the password
-            // matched the ReGex
-            return m.matches();
-        }
+    		Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(password);
+    		if (matcher.matches()) {
+    			return true;
+    		}
+    		throw new CustomException.InvalidPassword(
+    				"Minimum 8 characters, atleast 1 uppercase,1 numeric , exact 1 special character");
+    	}
       
     // main function
     public static void main(String[] args)
